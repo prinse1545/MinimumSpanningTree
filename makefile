@@ -1,7 +1,7 @@
 
 CPPOPTIONS = -c -g -Wall -std=c++0x
 
-all: test_set
+all: test_disjoint
 
 //==============================================================================
 
@@ -14,14 +14,17 @@ test_graph.o: test_graph.cc graph.h graph.cc
 graph.o: graph.cc graph.h
 	g++ -c graph.cc
 
-#set.o: set.cc set.h
-#	g++ -c set.cc
+disjoint.o: disjoint.cc disjoint.h
+	g++ -c disjoint.cc
 
-test_set.o: test_set.cc set.cc set.h
-	g++ -c test_set.cc
+test_disjoint.o: test_disjoint.cc disjoint.h disjoint.cc
+	g++ -c test_disjoint.cc
 
-test_set: test_set.o
-	g++ test_set.o set.o -o test_set
+node.o: node.h node.cc
+	g++ -c node.cc
+
+test_disjoint: test_disjoint.o disjoint.o node.o
+	g++ test_disjoint.o disjoint.o node.o -o test_disjoint
 
 //==============================================================================
 //==============================================================================
