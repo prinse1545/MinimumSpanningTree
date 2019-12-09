@@ -18,6 +18,7 @@
 #include <sstream>
 #include "disjoint.h"
 #include "pqueue.h"
+#include "node.h"
 
 using namespace std;
 
@@ -66,6 +67,6 @@ class CycleError
 class EmptyError {
 public:
   std::string message = "Graph is Empty!";
-}
+};
 
 #endif

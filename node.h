@@ -17,24 +17,30 @@ class Node
 {
 public:
 
-  Node<T>* getParent();
+  Node();
 
-  int getRank();
+  Node(int distance, T predecessor, T vertex);
 
-  void increaseRank();
+  int getDistance();
 
-  T getItem();
+  T getPredecessor();
 
-  void setRank(int item);
+  T getVertex();
 
-  void setParent(Node<T>* parent);
+  bool operator<=(Node<T> &n);
 
-  void setItem(T item);
+  bool operator>=(Node<T> &n);
+
+  bool operator<(Node<T> &n);
+
+  bool operator>(Node<T> &n);
+
+
 
 private:
-  Node<T>* parent;
-  int rank;
-  T item;
+  int distance;
+  T predecessor;
+  T vertex;
 };
 
 #include "node.cc"

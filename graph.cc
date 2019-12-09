@@ -161,7 +161,7 @@ void Graph::topologicalSort()
 
 string Graph::Kruskals() {
 
-  if(adjacencyList.size() == 0 || adjacencyMatrix.size === 0) throw new EmptyError;
+  if(adjacencyList.size() == 0 || adjacencyMatrix.size() == 0) throw new EmptyError;
 
   stringstream ss;
   Disjoint<int> A;
@@ -192,14 +192,18 @@ string Graph::Kruskals() {
 
 string Graph::Prims() {
 
-  if(adjacencyList.size() == 0 || adjacencyMatrix.size === 0) throw new EmptyError;
+  if(adjacencyList.size() == 0 || adjacencyMatrix.size() == 0) throw new EmptyError;
+
+
+
+
 
 
 }
 
 string Graph::Dijkstras(int source) {
 
-  if(adjacencyList.size() == 0 || adjacencyMatrix.size === 0) throw new EmptyError;
+  if(adjacencyList.size() == 0 || adjacencyMatrix.size() == 0) throw new EmptyError;
 
   vector<int> distance;
   vector<int> predecessor;
