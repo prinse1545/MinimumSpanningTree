@@ -17,11 +17,17 @@
 #include <queue>
 #include <sstream>
 #include "disjoint.h"
+#include "pqueue.h"
 
 using namespace std;
 
 class Graph {
 public:
+  struct Edge {
+    int u;
+    int v;
+    int weight;
+  };
 
   Graph(string filename);
 
@@ -35,15 +41,20 @@ public:
 
   string Prims();
 
-  string Dijkstras();
+  string Dijkstras(int source);
 
 private:
+
+
 
 
   map<int, vector<int> > adjacencyList;
   vector<vector<int> > adjacencyMatrix;
 
   void dfsHelper(int node, vector<bool> &coloring);
+  vector<Edge> kruskalHelper();
+  void sortEdges(vector<typename Graph::Edge> &edges);
+  void merge(vector<typename Graph::Edge> &edges, vector<typename Graph::Edge> &half, vector<typename Graph::Edge> &otherHalf);
 };
 
 class CycleError
@@ -51,5 +62,10 @@ class CycleError
 	public:
 		std::string message = "CYCLE DETECTED";
 };
+
+class EmptyError {
+public:
+  std::string message = "Graph is Empty!";
+}
 
 #endif

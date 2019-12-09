@@ -80,7 +80,9 @@ int main() {
 
   cout << "Testing Prims" << endl;
 
+
   cout << "Testing Dijkstras" << endl;
+
 
 
   cout << "Topological sort tests passed\n\n";
