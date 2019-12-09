@@ -1,14 +1,16 @@
+template <class T>
 
+Disjoint<T>::Disjoint() {  }
 
 template <class T>
 
 Disjoint<T>::Disjoint(T item) {
 
-  Node<T>* to_add = new Node<T>;
+  Node* to_add = new Node;
 
-  to_add->setParent(to_add);
-  to_add->setItem(item);
-  to_add->setRank(0);
+  to_add->parent = to_add;
+  to_add->item = item;
+  to_add->rank = 0;
 
   container.insert({item, to_add});
 }
@@ -17,11 +19,11 @@ template <class T>
 
 void Disjoint<T>::makeSet(T item) {
 
-  Node<T>* to_add = new Node<T>;
+  Node* to_add = new Node;
 
-  to_add->setParent(to_add);
-  to_add->setItem(item);
-  to_add->setRank(0);
+  to_add->parent = to_add;
+  to_add->item = item;
+  to_add->rank = 0;
 
   container.insert({item, to_add});
 }
@@ -29,26 +31,26 @@ void Disjoint<T>::makeSet(T item) {
 template <class T>
 
 T Disjoint<T>::findSet(T item) {
-  Node<T>* ret = findSetHelper(item);
+  Node* ret = findSetHelper(item);
 
-  return ret->getItem();
+  return ret->item;
 }
 
 template <class T>
 
-void Disjoint<T>::union(T x, T y) {
+void Disjoint<T>::makeUnion(T x, T y) {
 
   x = findSet(x);
   y = findSet(y);
 
-  if(container[x]->getRank() > container[y]->getRank()) {
-    container[y]->getParent() = container[x];
+  if(container[x]->rank > container[y]->rank) {
+    container[y]->parent = container[x];
   }
   else {
-    container[x]->getParent() = container[y]
+    container[x]->parent = container[y];
 
-    if(container[x]->getRank() == container[y]->getRank()) {
-      container[y]->increaseRank();
+    if(container[x]->rank == container[y]->rank) {
+      container[y]->rank++;
     }
   }
 
@@ -56,12 +58,12 @@ void Disjoint<T>::union(T x, T y) {
 
 template <class T>
 
-Node<T>* Disjoint<T>::findSetHelper(T item) {
+typename Disjoint<T>::Node* Disjoint<T>::findSetHelper(T item) {
 
-  Node<T>* curr = container[item];
+  Node* curr = container[item];
 
-  while(curr->getParent() != curr) {
-    curr = curr->getParent();
+  while(curr->parent != curr) {
+    curr = curr->parent;
   }
 
   return curr;

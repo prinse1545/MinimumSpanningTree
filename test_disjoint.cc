@@ -14,7 +14,10 @@ int main()
 {
   // test with ints
 
-  Disjoint<int> dis();
+  Disjoint<int> dis;
+
+  dis.makeSet(3);
+
 
   return 0;
 }

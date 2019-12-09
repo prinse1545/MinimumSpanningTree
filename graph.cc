@@ -159,15 +159,15 @@ void Graph::topologicalSort()
   cout << ss.str() << endl;
 }
 
-string Graph::Kruskal()
-{
-  Forest<int> f;
-  std::stringstream ss;
-  for(std::map<Key,Val>::iterator iter = myMap.begin(); iter != myMap.end(); ++iter)
-  {
-    Key k = iter->first;
-    f.makeSet(k);
-  }
-  std::vector<vector<int>> sortedEdges = adjacencyMatrix;
-  
+string Graph::Kruskals() {
+
+
+}
+
+string Graph::Prims() {
+
+}
+
+string Graph::Dijkstras() {
+
 }

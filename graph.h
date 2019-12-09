@@ -16,7 +16,7 @@
 #include <utility>
 #include <queue>
 #include <sstream>
-#include "set.h"
+#include "disjoint.h"
 
 using namespace std;
 
@@ -31,7 +31,11 @@ public:
 
   void topologicalSort();
 
-  string Kruskal();
+  string Kruskals();
+
+  string Prims();
+
+  string Dijkstras();
 
 private:
 

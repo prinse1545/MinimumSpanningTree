@@ -9,29 +9,38 @@
 #include <iostream>
 #include <string>
 #include <map>
-#include "node.h"
 
 using namespace std;
 
 template <class T>
+
+
+
 class Disjoint {
 public:
+
+
+  Disjoint();
 
   Disjoint(T item);
 
   void makeSet(T item);
 
-  void union(T x, T y);
+  void makeUnion(T x, T y);
 
   T findSet(T item);
 
-
 private:
 
+  struct Node {
+    Node* parent;
+    int rank;
+    T item;
+  };
 
-  map<T, Node<T>*> container;
+  map<T, Node*> container;
 
-  Node<T>* findSetHelper(T item);
+  Node* findSetHelper(T item);
 };
 
 #include "disjoint.cc"
