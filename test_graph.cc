@@ -77,13 +77,23 @@ int main() {
 
   cout << "Testing Kruskals" << endl;
 
+  Graph mintree("graph.txt");
+
+  string outputK = mintree.Kruskals();
+
+  cout << outputK << endl;
+
+  cout << "Kruskal's Algorithm Test Passed\n\n";
 
   cout << "Testing Prims" << endl;
 
-
   cout << "Testing Dijkstras" << endl;
 
+  Graph dirGraph("dirGraph.txt");
 
+  string outputD = dirGraph.Dijkstras(1);
+
+  cout << outputD << endl;
 
   cout << "Topological sort tests passed\n\n";
 

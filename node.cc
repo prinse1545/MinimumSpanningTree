@@ -30,13 +30,13 @@ T Node<T>::getVertex() {
 
 template <class T>
 
-void setPredecessor(T pred) {
+void Node<T>::setPredecessor(T pred) {
   predecessor = pred;
 }
 
 template <class T>
 
-void setDistance(int dist) {
+void Node<T>::setDistance(int dist) {
   distance = dist;
 }
 

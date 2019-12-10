@@ -69,5 +69,4 @@ public:
   std::string message = "Graph is Empty!";
 };
 
-#include "graph.cc"
 #endif
