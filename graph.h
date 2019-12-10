@@ -40,7 +40,7 @@ public:
 
   string Kruskals();
 
-  string Prims();
+  string Prims(int source);
 
   string Dijkstras(int source);
 
@@ -69,4 +69,5 @@ public:
   std::string message = "Graph is Empty!";
 };
 
+#include "graph.cc"
 #endif

@@ -1,24 +1,21 @@
 
 CPPOPTIONS = -c -g -Wall -std=c++0x
 
-all: test_disjoint
+all: test_graph
 
 //==============================================================================
 
-test_graph: graph.o test_graph.o disjoint.o pqueue.o node.o
-	g++ graph.o test_graph.o disjoint.o node.o pqueue.o -o test_graph
+test_graph: graph.o test_graph.o disjoint.o node.o
+	g++ graph.o test_graph.o disjoint.o node.o -o test_graph
 
 test_graph.o: test_graph.cc graph.h graph.cc disjoint.cc disjoint.h pqueue.cc pqueue.h
 	g++ -c test_graph.cc
 
-graph.o: graph.cc graph.h
+graph.o: graph.cc graph.h pqueue.cc pqueue.h MinHeap.cc MinHeap.h
 	g++ -c graph.cc
 
 disjoint.o: disjoint.cc disjoint.h
 	g++ -c disjoint.h
-
-pqueue.o: pqueue.cc pqueue.h MinHeap.cc MinHeap.h
-	g++ -c pqueue.h MinHeap.h
 
 node.o: node.cc node.h
 	g++ -c node.h

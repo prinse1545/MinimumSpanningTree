@@ -4,7 +4,7 @@
 // Description: This file implements a graph as described in graph.h
 
 #include "graph.h"
-#include "sstream"
+
 
 Graph::Graph(string filename) {
 
@@ -190,11 +190,20 @@ string Graph::Kruskals() {
 
 }
 
-string Graph::Prims() {
+string Graph::Prims(int source) {
 
   if(adjacencyList.size() == 0 || adjacencyMatrix.size() == 0) throw new EmptyError;
 
+  queue<int> Q;
+  Q.push(source);
 
+  while(!Q.empty()) {
+    int u = Q.pop();
+    int minWeight = adjacencyMatrix[u][]
+    // for(int i = 0; i < adjacencyList[u].length(); i++) {
+    //
+    // }
+  }
 
 
 
@@ -205,20 +214,46 @@ string Graph::Dijkstras(int source) {
 
   if(adjacencyList.size() == 0 || adjacencyMatrix.size() == 0) throw new EmptyError;
 
-  vector<int> distance;
-  vector<int> predecessor;
+  MinPriorityQueue<Node> PQ;
+  vector<int> A;
+  vector<int> distances;
+  vector<int> predecessors;
 
   for(auto const &vertex : adjacencyList) {
     if(vertex.first != source) {
-      distance[vertex.first] = INT8_MAX;
-      predecessor[vertex.first] = NULL;
+      Node<int>* n = new Node<int>(INT8_MAX, NULL, vertex.first);
+      PQ.insert(n);
+    }
+    else {
+      Node<int>* n = new Node<int>(INT8_MAX, NULL, vertex.first);
+      PQ.insert(n);
     }
   }
 
-  distance[source] = 0;
-  predecessor[source] = NULL;
 
-  MinPriorityQueue<int> PQ;
+  while(!PQ.empty()) {
+    int* u = PQ.extractMin();
+    A.push_back(*u);
+
+    for(int i = 0; i < adjacencyList[*u].size(); i++) {
+
+      int newDist = distance[*u] + adjacencyMatrix[*u][adjacencyList[*u][i]];
+
+      if (newDist < distance[adjacencyList[*u][i]]) {
+        distances[adjacencyList[*u][i]] = newDist;
+        predecessors[adjacencyList[*u][i]] = *u;
+      }
+    }
+
+
+    stringstream ss;
+
+    for(int i = 0; i < distance.size(); i++) {
+
+      ss << "(" << i << ": " << distance[i] << "), ";
+    }
+
+    return ss.str();
 
 
 }
