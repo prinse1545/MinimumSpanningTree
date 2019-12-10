@@ -89,6 +89,10 @@ int main() {
 
   cout << "Testing Prims" << endl;
 
+  string outputP = mintree.Prims(0);
+
+  cout << outputP << endl;
+
   cout << "Testing Dijkstras" << endl;
 
   Graph dirGraph("dirGraph.txt");

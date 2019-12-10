@@ -220,13 +220,14 @@ string Graph::Prims(int source) {
   {
     Node<int>* u = PQ.extractMin();
     int vertex = u->getVertex();
+    
     for(int i = 0; i < adjacencyList[u->getVertex()].size(); i++) {
-      
+
       Node<int> n(0, NULL, vertex);
-      cout << "for loop" << endl;
+
       if(PQ[PQ.index(&n)] != NULL && adjacencyMatrix[vertex][adjacencyList[vertex][i]] < PQ[PQ.index(&n)]->getDistance()) {
         Node<int>* v = PQ[PQ.index(&n)];
-        cout << "if statement" << endl;
+
         v->setPredecessor(vertex);
         v->setDistance(adjacencyMatrix[vertex][adjacencyList[vertex][i]]);
       }
