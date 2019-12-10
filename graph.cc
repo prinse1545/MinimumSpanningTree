@@ -242,20 +242,27 @@ string Graph::Dijkstras(int source) {
 
   MinPriorityQueue<Node<int>> PQ;
   vector<Node<int>> A;
-  
-  for(auto const &vertex : adjacencyList) {
-    if(vertex.first != source) {
-      Node<int>* n = new Node<int>(INT8_MAX, NULL, vertex.first);
 
-      PQ.insert(n);
+  for(auto const &vertex : adjacencyList) {
+    Node<int>* n = new Node<int>;
+
+    if(vertex.first != source) {
+
+      n->setVertex(vertex.first);
+      n->setPredecessor(NULL);
+      n->setDistance(INT8_MAX);
+
     }
     else {
-      Node<int>* n = new Node<int>(INT8_MAX, NULL, vertex.first);
+      n->setVertex(vertex.first);
+      n->setPredecessor(NULL);
+      n->setDistance(0);
 
-      PQ.insert(n);
     }
 
+    PQ.insert(n);
   }
+
 
 
 

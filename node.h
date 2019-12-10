@@ -31,6 +31,8 @@ public:
 
   void setDistance(int dist);
 
+  void setVertex(T vert);
+
   bool operator<=(Node<T> &n);
 
   bool operator>=(Node<T> &n);

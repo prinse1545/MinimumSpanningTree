@@ -42,6 +42,12 @@ void Node<T>::setDistance(int dist) {
 
 template <class T>
 
+void Node<T>::setVertex(T vert) {
+  vertex = vert;
+}
+
+template <class T>
+
 bool Node<T>::operator<=(Node<T> &n) {
   return distance <= n.getDistance();
 }
