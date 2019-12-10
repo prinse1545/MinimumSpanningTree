@@ -69,3 +69,18 @@ string MinPriorityQueue<T>::toString() const {
   //this is toString for HuffNode type
   string str = MinHeap<T>::toString();
 }
+
+template <typename T>
+int MinPriorityQueue<T>::index(T* item) const {
+
+  for(int i = 0; i < size; i++) {
+    if(*arr[i] == *item) return i;
+  }
+
+  return NULL;
+}
+
+template <typename T>
+T* MinPriorityQueue<T>::operator[](int index) {
+  return arr[index];
+}

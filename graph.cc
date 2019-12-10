@@ -194,15 +194,39 @@ string Graph::Prims(int source) {
 
   if(adjacencyList.size() == 0 || adjacencyMatrix.size() == 0) throw new EmptyError;
 
-  queue<int> Q;
-  Q.push(source);
+  vector<Edge> edges;
 
-  while(!Q.empty()) {
-    int u = Q.pop();
-    int minWeight = adjacencyMatrix[u][]
-    // for(int i = 0; i < adjacencyList[u].length(); i++) {
-    //
-    // }
+  MinPriorityQueue<T> PQ;
+
+  for(auto const &vertex : adjacencyList) {
+    Node<int>* n;
+    if(vertex.first == source) {
+      n = new Node<T>(0, NULL, vertex.first);
+    }
+    else {
+      n = new Node<T>(INT8_MAX, NULL, vertex.first);
+    }
+
+
+    PQ.insert(n);
+  }
+
+  while(!PQ.empty()) {
+    Node<int>* u = PQ.extractMin();
+
+    int minEdge = NULL;
+
+    for(int i = 0; i < adjacencyList[u->getVertex()].size(); i++) {
+      Node n(0, NULL, adjacencyList[u->getVertex()][i])
+      if(PQ.index(n) != NULL && adjacencyMatrix[u->getVertex()][adjacencyList[u->getVertex()][i]] < PQ[PQ.index(n)]->getDistance()) {
+        Node<int>* v = PQ[PQ.index(n)];
+
+        v->setPredecessor(u->getVertex());
+        v->setDistance(adjacencyMatrix[u->getVertex()][adjacencyList[u->getVertex()][i]]);
+
+      }
+    }
+
   }
 
 

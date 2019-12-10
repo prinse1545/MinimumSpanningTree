@@ -130,6 +130,10 @@ public:
   //
   // allows manual item designation for testing purpose
 
+  int index(T* item) const;
+
+  T* operator[](int index);
+
   friend ostream& operator<<(ostream &o, MinPriorityQueue<T> &prQ){
       //this friend function enables osteam operator.
       o << prQ.toString();

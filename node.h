@@ -27,6 +27,10 @@ public:
 
   T getVertex();
 
+  void setPredecessor(T pred);
+
+  void setDistance(int dist);
+
   bool operator<=(Node<T> &n);
 
   bool operator>=(Node<T> &n);
@@ -34,6 +38,8 @@ public:
   bool operator<(Node<T> &n);
 
   bool operator>(Node<T> &n);
+
+  bool operator==(Node<T> &n);
 
 
 

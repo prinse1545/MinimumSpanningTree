@@ -30,6 +30,18 @@ T Node<T>::getVertex() {
 
 template <class T>
 
+void setPredecessor(T pred) {
+  predecessor = pred;
+}
+
+template <class T>
+
+void setDistance(int dist) {
+  distance = dist;
+}
+
+template <class T>
+
 bool Node<T>::operator<=(Node<T> &n) {
   return distance <= n.getDistance();
 }
@@ -50,4 +62,10 @@ template <class T>
 
 bool Node<T>::operator>(Node<T> &n) {
   return distance > n.getDistance();
+}
+
+template <class T>
+
+bool Node<T>::operator==(Node<T> &n) {
+  return (vertex == n.getVertex());
 }
