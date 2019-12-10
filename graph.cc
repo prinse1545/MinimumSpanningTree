@@ -4,7 +4,7 @@
 // Description: This file implements a graph as described in graph.h
 
 #include "graph.h"
-
+#include "sstream"
 
 Graph::Graph(string filename) {
 
@@ -49,8 +49,6 @@ Graph::Graph(string filename) {
       count ++;
     }
   }
-
-  f.close();
 
 
 }
@@ -196,103 +194,128 @@ string Graph::Prims(int source) {
 
   if(adjacencyList.size() == 0 || adjacencyMatrix.size() == 0) throw new EmptyError;
 
-  vector<Edge> edges;
 
   MinPriorityQueue<Node<int>> PQ;
+  vector<Edge> edges;
 
-  for(auto const &vertex : adjacencyList) {
+  for (auto const &vertex : adjacencyList)
+  {
     Node<int>* n;
+
     if(vertex.first == source) {
-      n = new Node<int>(0, NULL, vertex.first);
+      n->setVertex(source);
+      n->setDistance(0);
+      n->setPredecessor(NULL);
     }
     else {
-      n = new Node<int>(INT8_MAX, NULL, vertex.first);
+      n->setVertex(vertex.first);
+      n->setDistance(100000);
+      n->setPredecessor(NULL);
     }
-
 
     PQ.insert(n);
   }
 
-  while(!PQ.empty()) {
+  while (!PQ.empty())
+  {
     Node<int>* u = PQ.extractMin();
 
-    int minEdge = NULL;
-
     for(int i = 0; i < adjacencyList[u->getVertex()].size(); i++) {
-      Node<int> n(0, NULL, adjacencyList[u->getVertex()][i]);
-      if(PQ.index(&n) != NULL && adjacencyMatrix[u->getVertex()][adjacencyList[u->getVertex()][i]] < PQ[PQ.index(&n)]->getDistance()) {
+      Node<int>* u = PQ.extractMin();
+      int vertex = u->getVertex();
+      Node<int> n(0, NULL, vertex);
+      if(PQ[PQ.index(&n)] != NULL && adjacencyMatrix[vertex][adjacencyList[vertex][i]] < PQ[PQ.index(&n)]->getDistance()) {
         Node<int>* v = PQ[PQ.index(&n)];
 
-        v->setPredecessor(u->getVertex());
-        v->setDistance(adjacencyMatrix[u->getVertex()][adjacencyList[u->getVertex()][i]]);
-
+        v->setPredecessor(vertex);
+        v->setDistance(adjacencyMatrix[vertex][adjacencyList[vertex][i]]);
       }
     }
 
+    if(u->getPredecessor() != NULL) {
+      Edge temp;
+      temp.u = u->getVertex();
+      temp.v = u->getPredecessor();
+      edges.push_back(temp);
+    }
+
+
   }
 
+  stringstream ss;
 
+  for(int i = 0; i < edges.size(); i++) {
+    ss << "(" << edges[i].u << " : " << edges[i].v << ")";
+  }
 
+  return ss.str();
 
 }
 
 string Graph::Dijkstras(int source) {
-
   if(adjacencyList.size() == 0 || adjacencyMatrix.size() == 0) throw new EmptyError;
-
   MinPriorityQueue<Node<int>> PQ;
   vector<Node<int>> A;
+  map<int, int> distances;
+  map<int, int> predecessors;
+  map<int, Node<int>> nodes;
 
   for(auto const &vertex : adjacencyList) {
-    Node<int>* n = new Node<int>;
-
     if(vertex.first != source) {
-
+      Node<int>* n = new Node<int>(100000, NULL, vertex.first);
       n->setVertex(vertex.first);
+      n->setDistance(100000);
       n->setPredecessor(NULL);
-      n->setDistance(INT8_MAX);
-
+      nodes[vertex.first] = *n;
+      nodes[vertex.first].setVertex(vertex.first);
+      distances[vertex.first] = 100000;
+      nodes[vertex.first].setDistance(100000);
+      nodes[vertex.first].setPredecessor(NULL);
+      predecessors[vertex.first] = NULL;
+      PQ.insert(n);
     }
+
     else {
+      Node<int>* n = new Node<int>(0, NULL, vertex.first);
       n->setVertex(vertex.first);
-      n->setPredecessor(NULL);
       n->setDistance(0);
+      n->setPredecessor(NULL);
+      nodes[vertex.first] = *n;
+      nodes[vertex.first].setVertex(vertex.first);
+      nodes[vertex.first].setDistance(0);
+      nodes[vertex.first].setPredecessor(NULL);
+      PQ.insert(n);
+
 
     }
-
-    PQ.insert(n);
   }
-
-
-
 
 
   while(!PQ.empty()) {
     Node<int>* u = PQ.extractMin();
-
     A.push_back(*u);
-    for(int i = 0; i < adjacencyList[u->getVertex()].size(); i++) {
 
-      int newDist = u->getDistance() + adjacencyMatrix[u->getVertex()][adjacencyList[u->getVertex()][i]];
-      Node<int> n(0, NULL, adjacencyList[u->getVertex()][i]);
-      if (newDist <  PQ[PQ.index(&n)]->getDistance()){
-
-        Node<int>* v = PQ[PQ.index(&n)];
-        v->setDistance(newDist);
-        v->setPredecessor(u->getVertex());
+    for(int i = 0; i < adjacencyMatrix[u->getVertex()].size(); i++) {
+      if (adjacencyMatrix[u->getVertex()][i] != 0)
+      {
+        int newDist = nodes[u->getVertex()].getDistance() + adjacencyMatrix[u->getVertex()][i];
+        if (newDist < nodes[i].getDistance()) {
+          distances[i] = newDist;
+          nodes[i].setDistance(newDist);
+          predecessors[i] = u->getVertex();
+          nodes[i].setPredecessor(u->getVertex());
+        }
       }
     }
   }
 
     stringstream ss;
 
-    for(int i = 0; i < A.size(); i++) {
-      ss << "(" << A[i].getVertex() << " : "<<  A[i].getDistance() << ")";
+    for(int i = 0; i < nodes.size(); i++) {
+      ss << "(" << i << ": " << nodes[i].getDistance() << "), ";
     }
 
-
     return ss.str();
-
 
 }
 
